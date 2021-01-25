@@ -20,7 +20,6 @@ import com.qa.ims.utils.DatabaseUtilities;
 		public static final Logger LOGGER = LogManager.getLogger();
 
 		
-
 		// CREATE
 		@Override
 		public Item create(Item item) {
@@ -39,10 +38,10 @@ import com.qa.ims.utils.DatabaseUtilities;
 		}
 
 		// READ
-		public Item read(Long id) {
+		public Item read(Long iid) {
 			try (Connection connection = DatabaseUtilities.getInstance().getConnection();
-					PreparedStatement statement = connection.prepareStatement("SELECT * FROM items WHERE id = ?");) {
-				statement.setLong(1, id);
+					PreparedStatement statement = connection.prepareStatement("SELECT * FROM items WHERE iid = ?");) {
+				statement.setLong(1, iid);
 				ResultSet resultSet = statement.executeQuery();
 				resultSet.next();
 				return modelFromResultSet(resultSet);
@@ -53,7 +52,7 @@ import com.qa.ims.utils.DatabaseUtilities;
 			return null;
 		}
 
-		// READ all
+		
 		@Override
 		public List<Item> readAll() {
 			try (Connection connection = DatabaseUtilities.getInstance().getConnection();
@@ -71,11 +70,11 @@ import com.qa.ims.utils.DatabaseUtilities;
 			return new ArrayList<>();
 		}
 
-		// READ latest
+		
 		public Item readLatest() {
 			try (Connection connection = DatabaseUtilities.getInstance().getConnection();
 					Statement statement = connection.createStatement();
-					ResultSet resultSet = statement.executeQuery("SELECT * FROM items ORDER BY id DESC LIMIT 1");) {
+					ResultSet resultSet = statement.executeQuery("SELECT * FROM items ORDER BY iid DESC LIMIT 1");) {
 				resultSet.next();
 				return modelFromResultSet(resultSet);
 			} catch (Exception e) {
@@ -90,12 +89,12 @@ import com.qa.ims.utils.DatabaseUtilities;
 		public Item update(Item item) {
 	        try (Connection connection = DatabaseUtilities.getInstance().getConnection();
 	                PreparedStatement statement = connection
-	                        .prepareStatement("UPDATE items SET name = ?, value = ? WHERE id = ?");) {
+	                        .prepareStatement("UPDATE items SET name = ?, value = ? WHERE iid = ?");) {
 	            statement.setString(1, item.getName());
 	            statement.setDouble(2, item.getValue());
-	            statement.setLong(3, item.getId());
+	            statement.setLong(3, item.getIid());
 	            statement.executeUpdate();
-	            return read(item.getId());
+	            return read(item.getIid());
 	        } catch (Exception e) {
 	            LOGGER.debug(e);
 	            LOGGER.error(e.getMessage());
@@ -105,10 +104,10 @@ import com.qa.ims.utils.DatabaseUtilities;
 
 		// DELETE
 		@Override
-		public int delete(long id) {
+		public int delete(long iid) {
 	        try (Connection connection = DatabaseUtilities.getInstance().getConnection();
 	                Statement statement = connection.createStatement();) {
-	            return statement.executeUpdate("delete from items where id = " + id);
+	            return statement.executeUpdate("delete from items where iid = " + iid);
 	        } catch (Exception e) {
 	            LOGGER.debug(e);
 	            LOGGER.error(e.getMessage());
@@ -118,9 +117,9 @@ import com.qa.ims.utils.DatabaseUtilities;
 
 		@Override
 		public Item modelFromResultSet(ResultSet resultSet) throws SQLException {
-			Long id = resultSet.getLong("id");
+			Long iid = resultSet.getLong("iid");
 	        String name = resultSet.getString("name");
 	        double value = resultSet.getDouble("value");
-	        return new Item(id, name, value);
+	        return new Item(iid, name, value);
 		}
 }

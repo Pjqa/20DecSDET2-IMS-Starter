@@ -3,7 +3,7 @@ package com.qa.ims.persistence.domain;
 public class Item {
 
 	// variables
-		private Long id;
+		private Long iid;
 		private String name;
 		private double value;
 
@@ -13,18 +13,18 @@ public class Item {
 			this.value = value;
 		}
 		
-		public Item(Long id, String name, double value) {
-			this.id = id;
+		public Item(Long iid, String name, double value) {
+			this.iid = iid;
 			this.name = name;
 			this.value = value;
 		}
 		
-		public Long getId() {
-			return id;
+		public Long getIid() {
+			return iid;
 		}
 
-		public void setId(Long id) {
-			this.id = id;
+		public void setIid(Long iid) {
+			this.iid = iid;
 		}
 
 		public String getName() {
@@ -45,14 +45,14 @@ public class Item {
 
 		@Override
 		public String toString() {
-			return "Item [id=" + id + ", name=" + name + ", value=" + value + "]";
+			return "Item [iid=" + iid + ", name=" + name + ", value=" + value + "]";
 		}
 
 		@Override
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + ((id == null) ? 0 : id.hashCode());
+			result = prime * result + ((iid == null) ? 0 : iid.hashCode());
 			result = prime * result + ((name == null) ? 0 : name.hashCode());
 			long temp;
 			temp = Double.doubleToLongBits(value);
@@ -69,10 +69,10 @@ public class Item {
 			if (getClass() != obj.getClass())
 				return false;
 			Item other = (Item) obj;
-			if (id == null) {
-				if (other.id != null)
+			if (iid == null) {
+				if (other.iid != null)
 					return false;
-			} else if (!id.equals(other.id))
+			} else if (!iid.equals(other.iid))
 				return false;
 			if (name == null) {
 				if (other.name != null)

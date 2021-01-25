@@ -51,13 +51,13 @@ public class ItemController implements ICrudController<Item>{
 	// UPDATE
 	@Override
 	public Item update() {
-        LOGGER.info("Enter the ID of the item you want to update");
-        Long id = javaUtilities.getLong();
+        LOGGER.info("Enter the iid of the item you want to update");
+        Long iid = javaUtilities.getLong();
         LOGGER.info("Enter a name");
         String name = javaUtilities.getString();
         LOGGER.info("Enter a value");
         double value = javaUtilities.getDouble();
-        Item item = itemDao.update(new Item(id, name, value));
+        Item item = itemDao.update(new Item(iid, name, value));
         LOGGER.info("Item Updated :)");
         return item;
     }
@@ -65,9 +65,9 @@ public class ItemController implements ICrudController<Item>{
 	// DELETE
 	@Override
 	public int delete() {
-        LOGGER.info("Enter the ID of the item you want to delete");
-        Long id = javaUtilities.getLong();
-        return itemDao.delete(id);
+        LOGGER.info("Enter the iid of the item you want to delete");
+        Long iid = javaUtilities.getLong();
+        return itemDao.delete(iid);
     }
 
 }
