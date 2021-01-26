@@ -11,6 +11,14 @@ CREATE TABLE IF NOT EXISTS `ims`.`customers` (
     PRIMARY KEY (`id`)
 );
 
+
+
+
+
+
+
+
+
 CREATE TABLE IF NOT EXISTS `ims`.`items` (
 	`iid` INT(11) NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(40) NOT NULL,
