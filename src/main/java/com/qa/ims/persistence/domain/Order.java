@@ -1,20 +1,20 @@
 package com.qa.ims.persistence.domain;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Order {
 	
 	private Long oid;
 	private Long fk_customer_id;
-	private LocalDate orderdate;
+	private Date orderdate;
 	
 	
-	public Order( Long fk_customer_id, LocalDate orderdate) {
+	public Order( Long fk_customer_id, Date orderdate) {
 		this.fk_customer_id = fk_customer_id;
 		this.orderdate = orderdate;
 	}
 	
-	public Order(Long oid, Long fk_customer_id, LocalDate orderdate) {
+	public Order(Long oid, Long fk_customer_id, Date orderdate) {
 		this.oid = oid;
 		this.fk_customer_id = fk_customer_id;
 		this.orderdate = orderdate;
@@ -36,11 +36,11 @@ public class Order {
 		this.fk_customer_id = fk_customer_id;
 	}
 
-	public LocalDate getOrderdate() {
+	public Date getOrderdate() {
 		return orderdate;
 	}
 
-	public void setOrderdate(LocalDate orderdate) {
+	public void setOrderdate(Date orderdate) {
 		this.orderdate = orderdate;
 	}
 

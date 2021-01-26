@@ -15,6 +15,6 @@ CREATE TABLE IF NOT EXISTS `ims`.`orders` (
     `oid` INT(11) NOT NULL AUTO_INCREMENT,
     `fk_id` INT NOT NULL,
     `order_date` DATE NOT NULL,
-    PRIMARY KEY (`oid`)
-    FOREIGN KEY (fk_id) REFERENCES customers (id)
+    PRIMARY KEY (`oid`),
+    FOREIGN KEY (`fk_id`) REFERENCES customers (`id`)
 );

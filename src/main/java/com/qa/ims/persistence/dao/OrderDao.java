@@ -1,12 +1,12 @@
 package com.qa.ims.persistence.dao;
 
 import java.sql.Connection;
+
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class OrderDao implements IDomainDao<Order> {
 		try (Connection connection = DatabaseUtilities.getInstance().getConnection();
                 PreparedStatement statement = connection
                         .prepareStatement("INSERT INTO orders(fk_customers_id, orderdate) VALUES (?,?)");) {
-            statement.setLong(1, order.getFk_customers_id());
+            statement.setLong(1, order.getFk_customer_id());
             statement.setDate(2, order.getOrderdate());
             statement.executeUpdate();
             return readLatest();
@@ -92,8 +92,9 @@ public class OrderDao implements IDomainDao<Order> {
         try (Connection connection = DatabaseUtilities.getInstance().getConnection();
                 PreparedStatement statement = connection
                         .prepareStatement("UPDATE customers SET first_name = ?, surname = ? WHERE id = ?");) {
-            statement.setLong(1, order.getId());
+            statement.setLong(1, order.getOid());
             statement.setLong(2, order.getFk_customer_id());
+            statement.setDate(3, order.getOrderdate());
             statement.executeUpdate();
             return read(order.getOid());
         } catch (Exception e) {
@@ -121,7 +122,7 @@ public class OrderDao implements IDomainDao<Order> {
 		Long oid = resultSet.getLong("oid");
         Long fk_customers_id = resultSet.getLong("fk_customers_id");
         Date orderdate = resultSet.getDate("orderdate");
-        return new Order(oid, fk_customers_id);
+        return new Order(oid, fk_customers_id, orderdate);
 	}
 
 }
