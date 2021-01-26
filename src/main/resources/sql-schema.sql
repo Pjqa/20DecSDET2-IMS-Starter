@@ -12,16 +12,26 @@ CREATE TABLE IF NOT EXISTS `ims`.`customers` (
 );
 
 
-
-
-
-
-
-
-
 CREATE TABLE IF NOT EXISTS `ims`.`items` (
 	`iid` INT(11) NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(40) NOT NULL,
 	`value` DEC(5,2) NOT NULL,
 	PRIMARY KEY (`iid`)
+  );
+
+
+CREATE TABLE IF NOT EXISTS `ims`.`orders` (
+    `oid` INT(11) NOT NULL AUTO_INCREMENT,
+    `fk_id` INT NOT NULL,
+    `order_date` DATE NOT NULL,
+    PRIMARY KEY (`oid`),
+    FOREIGN KEY (`fk_id`) REFERENCES customers (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `ims`.`orders` (
+    `oid` INT(11) NOT NULL AUTO_INCREMENT,
+    `fk_id` INT NOT NULL,
+    `order_date` DATE NOT NULL,
+    PRIMARY KEY (`oid`),
+    FOREIGN KEY (`fk_id`) REFERENCES customers (`id`)
 );
