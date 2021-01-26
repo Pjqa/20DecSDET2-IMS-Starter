@@ -16,6 +16,6 @@ CREATE TABLE IF NOT EXISTS `ims`.`orderlines` (
     `fk_iid` INT NOT NULL,
     `fk_oid` INT NOT NULL,
     PRIMARY KEY (`rid`),
-    FOREIGN KEY (fk_iid) REFERENCES items (iid),
-    FOREIGN KEY (fk_oid) REFERENCES customers (oid)
+    FOREIGN KEY (`fk_iid`) REFERENCES items (`iid`),
+    FOREIGN KEY (`fk_oid`) REFERENCES orders (`oid`)
 );
