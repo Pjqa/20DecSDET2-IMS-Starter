@@ -1,11 +1,14 @@
 package com.qa.ims.cli;
 
 import org.apache.logging.log4j.LogManager;
+
 import org.apache.logging.log4j.Logger;
 
+import com.qa.ims.controller.OrderlineController;
 import com.qa.ims.controller.CustomerController;
 import com.qa.ims.controller.ICrudController;
 import com.qa.ims.persistence.dao.CustomerDao;
+import com.qa.ims.persistence.dao.OrderlineDao;
 import com.qa.ims.utils.DatabaseUtilities;
 import com.qa.ims.utils.JavaUtilities;
 
@@ -13,6 +16,7 @@ public class IMSEntryPoint {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
+    private final OrderlineController orderlines;
     private final CustomerController customers;
     private final JavaUtilities javaUtilities;
 
@@ -20,6 +24,8 @@ public class IMSEntryPoint {
         this.javaUtilities = new JavaUtilities();
         final CustomerDao custDAO = new CustomerDao();
         this.customers = new CustomerController(custDAO, javaUtilities);
+        final OrderlineDao orliDAO = new OrderlineDao();
+        this.orderlines = new OrderlineController(orliDAO, javaUtilities);
     }
 
     public void init() {
@@ -50,7 +56,7 @@ public class IMSEntryPoint {
                 // fill this in!
                 break;
             case ORDER:
-                // fill this in!
+                active = this.orderlines;
                 break;
             case STOP:
                 return;

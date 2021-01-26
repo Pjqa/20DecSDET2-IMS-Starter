@@ -3,18 +3,21 @@ package com.qa.ims.persistence.domain;
 public class Orderline {
 	
 	private Long rid;
+	private Long fk_item_iid;
 	private Long fk_order_oid;
-	private Long fk_customer_id;
+	
 
-	public Orderline(Long fk_order_oid, Long fk_customer_id) {
+	public Orderline(Long fk_item_iid, Long fk_order_oid) {
+		this.fk_item_iid = fk_item_iid;
 		this.fk_order_oid = fk_order_oid;
-		this.fk_customer_id = fk_customer_id;		
+			
 	}
 	
-	public Orderline(Long rid, Long fk_order_oid, Long fk_customer_id) {
+	public Orderline(Long rid, Long fk_item_iid, Long fk_order_oid) {
 		this.rid = rid;
+		this.fk_item_iid = fk_item_iid;
 		this.fk_order_oid = fk_order_oid;
-		this.fk_customer_id = fk_customer_id;		
+			
 	}
 
 	public Long getRid() {
@@ -25,6 +28,14 @@ public class Orderline {
 		this.rid = rid;
 	}
 
+	public Long getFk_item_iid() {
+		return fk_item_iid;
+	}
+
+	public void setFk_item_iid(Long fk_item_iid) {
+		this.fk_item_iid = fk_item_iid;
+	}
+	
 	public Long getFk_order_oid() {
 		return fk_order_oid;
 	}
@@ -33,24 +44,16 @@ public class Orderline {
 		this.fk_order_oid = fk_order_oid;
 	}
 
-	public Long getFk_customer_id() {
-		return fk_customer_id;
-	}
-
-	public void setFk_customer_id(Long fk_customer_id) {
-		this.fk_customer_id = fk_customer_id;
-	}
-
 	@Override
 	public String toString() {
-		return "Orderline [rid=" + rid + ", fk_order_oid=" + fk_order_oid + ", fk_customer_id=" + fk_customer_id + "]";
+		return "Orderline [rid=" + rid + ", fk_item_iid=" + fk_item_iid + ", fk_order_oid=" + fk_order_oid + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((fk_customer_id == null) ? 0 : fk_customer_id.hashCode());
+		result = prime * result + ((fk_item_iid == null) ? 0 : fk_item_iid.hashCode());
 		result = prime * result + ((fk_order_oid == null) ? 0 : fk_order_oid.hashCode());
 		result = prime * result + ((rid == null) ? 0 : rid.hashCode());
 		return result;
@@ -65,10 +68,10 @@ public class Orderline {
 		if (getClass() != obj.getClass())
 			return false;
 		Orderline other = (Orderline) obj;
-		if (fk_customer_id == null) {
-			if (other.fk_customer_id != null)
+		if (fk_item_iid == null) {
+			if (other.fk_item_iid != null)
 				return false;
-		} else if (!fk_customer_id.equals(other.fk_customer_id))
+		} else if (!fk_item_iid.equals(other.fk_item_iid))
 			return false;
 		if (fk_order_oid == null) {
 			if (other.fk_order_oid != null)
@@ -82,6 +85,6 @@ public class Orderline {
 			return false;
 		return true;
 	}
-	
+
 	
 }

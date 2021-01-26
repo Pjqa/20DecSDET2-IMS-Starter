@@ -1,6 +1,7 @@
 package com.qa.ims.persistence.dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,8 +25,8 @@ public class OrderlineDao implements IDomainDao<Orderline> {
         try (Connection connection = DatabaseUtilities.getInstance().getConnection();
                 PreparedStatement statement = connection
                         .prepareStatement("INSERT INTO orderlines(fk_item_iid, fk_order_oid) VALUES (?, ?)");) {
-            statement.setString(1, orderline.getFK_item_iid());
-            statement.setString(2, orderline.getFK_order_oid());
+            statement.setLong(1, orderline.getFk_item_iid());
+            statement.setLong(2, orderline.getFk_order_oid());
             statement.executeUpdate();
             return readLatest();
         } catch (Exception e) {
@@ -86,8 +87,8 @@ public class OrderlineDao implements IDomainDao<Orderline> {
         try (Connection connection = DatabaseUtilities.getInstance().getConnection();
                 PreparedStatement statement = connection
                         .prepareStatement("UPDATE orderline SET fk_item_iid = ?, fk_order_oid = ?,  WHERE rid = ?");) {
-            statement.setString(1,orderline.getFK_item_iid());
-            statement.setString(2, orderline.getFK_order_oid());
+            statement.setLong(1,orderline.getFk_item_iid());
+            statement.setLong(2, orderline.getFk_order_oid());
             statement.setLong(3, orderline.getRid());
             statement.executeUpdate();
             return read(orderline.getRid());

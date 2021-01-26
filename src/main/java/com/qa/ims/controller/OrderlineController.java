@@ -13,7 +13,7 @@ public class OrderlineController implements ICrudController<Orderline> {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
-    private OrderlineDao customerDao;
+    private OrderlineDao orderlineDao;
     private JavaUtilities javaUtilities;
 
     public OrderlineController(OrderlineDao orderlineDao, JavaUtilities javaUtilities) {
