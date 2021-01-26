@@ -2,6 +2,7 @@ package com.qa.ims.controller;
 
 import java.sql.Date;
 
+
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -30,12 +31,10 @@ public class OrderController implements ICrudController<Order>  {
 	@Override
 	public Order create() {
         LOGGER.info("Enter the customer id");
-        Long id = javaUtilities.getLong();
-        LOGGER.info("Enter a surname");
         Long fk_customer_id = javaUtilities.getLong();
         LOGGER.info("Enter Date Ordered on MM/DD/YYYY");
         Date orderdate = javaUtilities.getDate();
-        Order order = orderDao.create(new Order(id, fk_customer_id, orderdate));
+        Order order = orderDao.create(new Order(fk_customer_id, orderdate));
         LOGGER.info("Order created :)");
         return order;
     }
