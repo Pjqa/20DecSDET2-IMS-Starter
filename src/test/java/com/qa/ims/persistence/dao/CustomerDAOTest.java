@@ -58,3 +58,4 @@ public class CustomerDAOTest {
         assertEquals(1, DAO.delete(1));
     }
 }
+ // 74% COVERAGE
