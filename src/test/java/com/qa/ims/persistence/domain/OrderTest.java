@@ -55,3 +55,5 @@ public class OrderTest {
 		EqualsVerifier.simple().forClass(Order.class).verify();
     }
 }
+
+//91% COVERAGE
