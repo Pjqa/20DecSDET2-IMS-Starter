@@ -24,7 +24,7 @@
 //    
 //    @Test
 //    public void testCreate() {
-//        final Order created = new Order(3L, 1L);
+//        final Order created = new Order(2L, 2L);
 //        assertEquals(created, DAO.create(created));
 //    }
 //
@@ -49,7 +49,7 @@
 //    
 //    @Test
 //    public void testUpdate() {
-//        final Order updated = new Order(1L, 1L);
+//        final Order updated = new Order(1L, 2L);
 //        assertEquals(updated, DAO.update(updated));
 //    }
 //    
