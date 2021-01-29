@@ -1,23 +1,39 @@
 package com.qa.ims.persistence.domain;
 
-import java.sql.Date;
+import java.util.List;
 
 public class Order {
 	
 	private Long oid;
 	private Long fk_customer_id;
-	private Date orderdate;
-	
-	
-	public Order( Long fk_customer_id, Date orderdate) {
-		this.fk_customer_id = fk_customer_id;
-		this.orderdate = orderdate;
-	}
-	
-	public Order(Long oid, Long fk_customer_id, Date orderdate) {
+	private double orderPrice;
+	private List<Item> orderItems;
+
+	public Order(Long oid, Long fk_customer_id, double orderPrice, List<Item> orderItems) {
+		super();
 		this.oid = oid;
 		this.fk_customer_id = fk_customer_id;
-		this.orderdate = orderdate;
+		this.orderPrice = orderPrice;
+		this.orderItems = orderItems;
+	}
+
+	public Order(Long fk_customer_id, double orderPrice, List<Item> orderItems) {
+		super();
+		this.fk_customer_id = fk_customer_id;
+		this.orderPrice = orderPrice;
+		this.orderItems = orderItems;
+	}
+
+	
+	public Order(Long fk_customer_id) {
+		super();
+		this.fk_customer_id = fk_customer_id;
+	}
+
+	public Order(Long oid, Long fk_customer_id) {
+		super();
+		this.oid = oid;
+		this.fk_customer_id = fk_customer_id;
 	}
 
 	public Long getOid() {
@@ -36,17 +52,20 @@ public class Order {
 		this.fk_customer_id = fk_customer_id;
 	}
 
-	public Date getOrderdate() {
-		return orderdate;
+	public double getOrderPrice() {
+		return orderPrice;
 	}
 
-	public void setOrderdate(Date orderdate) {
-		this.orderdate = orderdate;
+	public void setOrderPrice(double orderPrice) {
+		this.orderPrice = orderPrice;
 	}
 
-	@Override
-	public String toString() {
-		return "Order [oid=" + oid + ", fk_customer_id=" + fk_customer_id + ", orderdate=" + orderdate + "]";
+	public List<Item> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<Item> orderItems) {
+		this.orderItems = orderItems;
 	}
 
 	@Override
@@ -55,7 +74,10 @@ public class Order {
 		int result = 1;
 		result = prime * result + ((fk_customer_id == null) ? 0 : fk_customer_id.hashCode());
 		result = prime * result + ((oid == null) ? 0 : oid.hashCode());
-		result = prime * result + ((orderdate == null) ? 0 : orderdate.hashCode());
+		result = prime * result + ((orderItems == null) ? 0 : orderItems.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(orderPrice);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -78,12 +100,20 @@ public class Order {
 				return false;
 		} else if (!oid.equals(other.oid))
 			return false;
-		if (orderdate == null) {
-			if (other.orderdate != null)
+		if (orderItems == null) {
+			if (other.orderItems != null)
 				return false;
-		} else if (!orderdate.equals(other.orderdate))
+		} else if (!orderItems.equals(other.orderItems))
+			return false;
+		if (Double.doubleToLongBits(orderPrice) != Double.doubleToLongBits(other.orderPrice))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [oid=" + oid + ", fk_customer_id=" + fk_customer_id + ", orderPrice=" + orderPrice
+				+ ", orderItems=" + orderItems + "]";
 	}
 	
 	

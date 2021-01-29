@@ -23,7 +23,15 @@ CREATE TABLE IF NOT EXISTS `ims`.`items` (
 CREATE TABLE IF NOT EXISTS `ims`.`orders` (
     `oid` INT(11) NOT NULL AUTO_INCREMENT,
     `fk_id` INT NOT NULL,
-    `order_date` DATE NOT NULL,
     PRIMARY KEY (`oid`),
     FOREIGN KEY (`fk_id`) REFERENCES customers (`id`)
+);    
+    
+CREATE TABLE IF NOT EXISTS `ims`.`orderlines` (
+    `rid`  INT(11) NOT NULL AUTO_INCREMENT,
+    `fk_iid` INT NOT NULL,
+    `fk_oid` INT NOT NULL,
+    PRIMARY KEY (`rid`),
+    FOREIGN KEY (`fk_iid`) REFERENCES items (`iid`),
+    FOREIGN KEY (`fk_oid`) REFERENCES orders (`oid`)
 );

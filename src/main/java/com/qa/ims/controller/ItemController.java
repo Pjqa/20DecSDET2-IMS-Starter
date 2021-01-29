@@ -14,7 +14,7 @@ public class ItemController implements ICrudController<Item>{
 	
 	public static final Logger LOGGER = LogManager.getLogger();
 	 
-
+	
 	private ItemDao itemDao;
    	private JavaUtilities javaUtilities;
    	
@@ -31,7 +31,7 @@ public class ItemController implements ICrudController<Item>{
 	public Item create() {
 		LOGGER.info("Enter the name of the item");
         String name = javaUtilities.getString();
-		LOGGER.info("Enter the value of the item");
+		LOGGER.info("Enter the price of the item");
         double value = javaUtilities.getDouble();
         Item item = itemDao.create(new Item(name, value));
         LOGGER.info("Item created :)");

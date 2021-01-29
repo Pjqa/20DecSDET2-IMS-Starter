@@ -14,20 +14,19 @@ import org.apache.logging.log4j.Logger;
 import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.utils.DatabaseUtilities;
 	
-	public class ItemDao implements IDomainDao<Item> {
-		
+public class ItemDao implements IDomainDao<Item> {
 		
 		public static final Logger LOGGER = LogManager.getLogger();
 
-		
+	
 		// CREATE
 		@Override
 		public Item create(Item item) {
 			try (Connection connection = DatabaseUtilities.getInstance().getConnection();
 					PreparedStatement statement = connection
-							.prepareStatement("INSERT INTO items(name, value) VALUES (?, ?)");) {
+							.prepareStatement("INSERT INTO items(name, price) VALUES (?, ?)");) {
 				statement.setString(1, item.getName());
-				statement.setDouble(2, item.getValue());
+				statement.setDouble(2, item.getPrice());
 				statement.executeUpdate();
 				return readLatest();
 			} catch (Exception e) {
@@ -89,9 +88,9 @@ import com.qa.ims.utils.DatabaseUtilities;
 		public Item update(Item item) {
 	        try (Connection connection = DatabaseUtilities.getInstance().getConnection();
 	                PreparedStatement statement = connection
-	                        .prepareStatement("UPDATE items SET name = ?, value = ? WHERE iid = ?");) {
+	                        .prepareStatement("UPDATE items SET name = ?, price = ? WHERE iid = ?");) {
 	            statement.setString(1, item.getName());
-	            statement.setDouble(2, item.getValue());
+	            statement.setDouble(2, item.getPrice());
 	            statement.setLong(3, item.getIid());
 	            statement.executeUpdate();
 	            return read(item.getIid());
@@ -119,8 +118,8 @@ import com.qa.ims.utils.DatabaseUtilities;
 		public Item modelFromResultSet(ResultSet resultSet) throws SQLException {
 			Long iid = resultSet.getLong("iid");
 	        String name = resultSet.getString("name");
-	        double value = resultSet.getDouble("value");
-	        return new Item(iid, name, value);
+	        double price = resultSet.getDouble("price");
+	        return new Item(iid, name, price);
 		}
 
 

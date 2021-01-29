@@ -16,7 +16,7 @@ public class Customer {
 		this.setFirstName(firstName);
 		this.setSurname(surname);
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -41,9 +41,10 @@ public class Customer {
 		this.surname = surname;
 	}
 
+	
 	@Override
 	public String toString() {
-		return "id:" + id + " first name:" + firstName + " surname:" + surname;
+		return "Customer [id=" + id + ", firstName=" + firstName + ", surname=" + surname + "]";
 	}
 
 	@Override
