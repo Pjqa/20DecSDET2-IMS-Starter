@@ -17,7 +17,6 @@ import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.DatabaseUtilities;
 
 public class OrderDao implements IDomainDao<Order> {
-	
 
 	public static final Logger LOGGER = LogManager.getLogger();
 	private ItemDao idao;
@@ -27,102 +26,99 @@ public class OrderDao implements IDomainDao<Order> {
 		super();
 		this.idao = idao;
 		this.cdao = cdao;
-		
+
 	}
-	
-	//CREATE
+
+	// CREATE
 	@Override
 	public Order create(Order order) {
 		try (Connection connection = DatabaseUtilities.getInstance().getConnection();
-                PreparedStatement statement = connection
-                        .prepareStatement("INSERT INTO orders(fk_id) VALUES (?)");) {
-            statement.setLong(1, order.getFk_customer_id());
-            statement.executeUpdate();
-            return readLatest();
-        } catch (Exception e) {
-            LOGGER.debug(e);
-            LOGGER.error(e.getMessage());
-        }
-        return null;
+				PreparedStatement statement = connection.prepareStatement("INSERT INTO orders(fk_id) VALUES (?)");) {
+			statement.setLong(1, order.getFk_customer_id());
+			statement.executeUpdate();
+			return readLatest();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
 	}
-	
+
 	// READ
 	public Order read(Long oid) {
-        try (Connection connection = DatabaseUtilities.getInstance().getConnection();
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders WHERE oid = ?");) {
-            statement.setLong(1, oid);
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            return modelFromResultSet(resultSet);
-        } catch (Exception e) {
-            LOGGER.debug(e);
-            LOGGER.error(e.getMessage());
-        }
-        return null;
-    }
-	
-	
-	@Override
-    public List<Order> readAll() {
-        try (Connection connection = DatabaseUtilities.getInstance().getConnection();
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM orders");) {
-            List<Order> orders = new ArrayList<>();
-            while (resultSet.next()) {
-                orders.add(modelFromResultSet(resultSet));
-            }
-            return orders;
-        } catch (SQLException e) {
-            LOGGER.debug(e);
-            LOGGER.error(e.getMessage());
-        }
-        return new ArrayList<>();
-    }
+		try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+				PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders WHERE oid = ?");) {
+			statement.setLong(1, oid);
+			ResultSet resultSet = statement.executeQuery();
+			resultSet.next();
+			return modelFromResultSet(resultSet);
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
 
-	
+	@Override
+	public List<Order> readAll() {
+		try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders");) {
+			List<Order> orders = new ArrayList<>();
+			while (resultSet.next()) {
+				orders.add(modelFromResultSet(resultSet));
+			}
+			return orders;
+		} catch (SQLException e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return new ArrayList<>();
+	}
+
 	public Order readLatest() {
-        try (Connection connection = DatabaseUtilities.getInstance().getConnection();
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY oid DESC LIMIT 1");) {
-            resultSet.next();
-            return modelFromResultSet(resultSet);
-        } catch (Exception e) {
-            LOGGER.debug(e);
-            LOGGER.error(e.getMessage());
-        }
-        return null;
-    }
-	
+		try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY oid DESC LIMIT 1");) {
+			resultSet.next();
+			return modelFromResultSet(resultSet);
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+
 	// UPDATE
 	@Override
 	public Order update(Order order) {
-        try (Connection connection = DatabaseUtilities.getInstance().getConnection();
-                PreparedStatement statement = connection
-                        .prepareStatement("UPDATE orders SET fk_id = ? WHERE oid = ?");) {
-            statement.setLong(1, order.getFk_customer_id());    
-            statement.setLong(3, order.getOid());
-            statement.executeUpdate();
-            return read(order.getOid());
-        } catch (Exception e) {
-            LOGGER.debug(e);
-            LOGGER.error(e.getMessage());
-        }
-        return null;
-    }
-	
+		try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("UPDATE orders SET fk_id = ? WHERE oid = ?");) {
+			statement.setLong(1, order.getFk_customer_id());
+			statement.setLong(3, order.getOid());
+			statement.executeUpdate();
+			return read(order.getOid());
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+
 	// DELETE
 	@Override
-    public int delete(long oid) {
-        try (Connection connection = DatabaseUtilities.getInstance().getConnection();
-                Statement statement = connection.createStatement();) {
-            return statement.executeUpdate("DELETE FROM orders WHERE oid = " + oid);
-        } catch (Exception e) {
-            LOGGER.debug(e);
-            LOGGER.error(e.getMessage());
-        }
-        return 0;
-    }
-	
+	public int delete(long oid) {
+		try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
+			return statement.executeUpdate("DELETE FROM orders WHERE oid = " + oid);
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return 0;
+	}
+
 	// ADD ITEM TO ORDER
 	public Order addUpdate(Long oid, Long iid) {
 		try (Connection connection = DatabaseUtilities.getInstance().getConnection();
@@ -138,22 +134,23 @@ public class OrderDao implements IDomainDao<Order> {
 		}
 		return null;
 	}
-	
-	//REMOVE ITEM FROM ORDER
+
+	// REMOVE ITEM FROM ORDER
 	public Order removeUpdate(Long oid, Long iid) {
-        try (Connection connection = DatabaseUtilities.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement("DELETE FROM orderlines WHERE (fk_oid = ? AND fk_iid = ?")) {
-        	statement.setLong(1, oid);
-        	statement.setLong(2, iid);
-            statement.executeUpdate();
-            return readLatest();
-        } catch (Exception e) {
-            LOGGER.debug(e);
-            LOGGER.error(e.getMessage());
-        }
-        return null;
-    }
-	
+		try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("DELETE FROM orderlines WHERE (fk_oid = ? AND fk_iid = ?")) {
+			statement.setLong(1, oid);
+			statement.setLong(2, iid);
+			statement.executeUpdate();
+			return readLatest();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+
 //	  CALCULATE ORDER COST
 //    public double calOrderCost(Long oid) {
 //    	double totalCost = 0.0;
@@ -172,40 +169,36 @@ public class OrderDao implements IDomainDao<Order> {
 //        }
 //        return totalCost;
 //    }
-	
-	
+
 	public List<Item> getItemsFromOrder(Long oid) {
 		List<Item> returnItems = new ArrayList<>();
 		List<Long> orderItemIDs = new ArrayList<>();
 		try (Connection connection = DatabaseUtilities.getInstance().getConnection();
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM orderlines WHERE fk_oid = ?");){
-				statement.setLong(1, oid);
-				try (ResultSet rs = statement.executeQuery();){
-					while (rs.next())  {
-						orderItemIDs.add(rs.getLong ("fk_iid"));
-					}
-				}	 
+				PreparedStatement statement = connection
+						.prepareStatement("SELECT * FROM orderlines WHERE fk_oid = ?");) {
+			statement.setLong(1, oid);
+			try (ResultSet rs = statement.executeQuery();) {
+				while (rs.next()) {
+					orderItemIDs.add(rs.getLong("fk_iid"));
+				}
+			}
 		} catch (SQLException e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
-		    }
-			for (Long i : orderItemIDs) {
-				returnItems.add(idao.read(i));
+		}
+		for (Long i : orderItemIDs) {
+			returnItems.add(idao.read(i));
 		}
 		return returnItems;
 	}
-	
-	
-	
-	
+
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long oid = resultSet.getLong("oid");
-        Long fk_customers_id = resultSet.getLong("fk_id");
-        double orderPrice = resultSet.getDouble("price");
-        List<Item> itemlist = getItemsFromOrder (oid);
-        return new Order(oid, fk_customers_id, orderPrice, itemlist);
+		Long fk_customers_id = resultSet.getLong("fk_id");
+		double orderPrice = resultSet.getDouble("price");
+		List<Item> itemlist = getItemsFromOrder(oid);
+		return new Order(oid, fk_customers_id, orderPrice, itemlist);
 	}
-	
-	
+
 }
