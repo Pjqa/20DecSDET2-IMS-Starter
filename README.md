@@ -88,7 +88,8 @@ CREATE TABLE IF NOT EXISTS `orderlines` (
     FOREIGN KEY (`fk_oid`) REFERENCES `orders` (`oid`) ON DELETE CASCADE
 );
 ```
-
+## Jira
+https://team-1608043016664.atlassian.net/secure/RapidBoard.jspa?rapidView=2&useStoredSettings=true
 
 ## Built With
 
