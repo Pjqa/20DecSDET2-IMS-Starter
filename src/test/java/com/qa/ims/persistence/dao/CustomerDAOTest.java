@@ -20,34 +20,35 @@ public class CustomerDAOTest {
         DatabaseUtilities.connect();
         DatabaseUtilities.getInstance().init("src/test/resources/sql-schema.sql", "src/test/resources/sql-data.sql");
     }
-
+    
     @Test
     public void testCreate() {
-        final Customer created = new Customer(2L, "nick", "johnson");
+        final Customer created = new Customer(3L, "Cat", "Hat");
         assertEquals(created, DAO.create(created));
     }
 
     @Test
     public void testReadAll() {
         List<Customer> expected = new ArrayList<>();
-        expected.add(new Customer(1L, "jordan", "harrison"));
+        expected.add(new Customer(1L, "Thing", "One"));
+        expected.add(new Customer(2L, "Cat", "Hat"));
         assertEquals(expected, DAO.readAll());
     }
 
     @Test
     public void testReadLatest() {
-        assertEquals(new Customer(1L, "jordan", "harrison"), DAO.readLatest());
+        assertEquals(new Customer(2L, "Cat", "Hat"), DAO.readLatest());
     }
 
     @Test
     public void testRead() {
-        final long ID = 1L;
-        assertEquals(new Customer(ID, "jordan", "harrison"), DAO.read(ID));
+        final long id = 1L;
+        assertEquals(new Customer(id, "Thing", "One"), DAO.read(id));
     }
 
     @Test
     public void testUpdate() {
-        final Customer updated = new Customer(1L, "nick", "johnson");
+        final Customer updated = new Customer(1L, "Cat", "Hat");
         assertEquals(updated, DAO.update(updated));
 
     }
@@ -57,3 +58,4 @@ public class CustomerDAOTest {
         assertEquals(1, DAO.delete(1));
     }
 }
+ // 74% COVERAGE

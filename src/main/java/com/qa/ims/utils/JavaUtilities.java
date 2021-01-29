@@ -50,5 +50,5 @@ public class JavaUtilities {
         } while (doubleInput == null);
         return doubleInput;
     }
-
+    
 }
